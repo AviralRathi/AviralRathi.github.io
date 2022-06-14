@@ -22,6 +22,20 @@
 	 var docImageBase64 = '';
 	 // var imageBase64 = '';
 	  
+	 // callback for faceMatch
+	callback = (HVError, HVResponse) => {
+		  if(HVError) {
+			var errorCode = HVError.getErrorCode();
+			var errorMessage = HVError.getErrorMessage();
+		  } 
+		  else if(HVResponse) {
+			var apiResults = HVResponse.getApiResult();
+			var apiHeaders = HVResponse.getApiHeaders();
+		  }
+		};
+	    
+	HVNetworkHelper.makeFaceMatchCall(faceImageBase64, docImageBase64, {}, {}, callback); // Make Face Match call for a comparison between selfie and doc image   
+	    
 	  // Function wrapper for liveness button
 	  function runLiveness(){
 	  //For Face Capture Screen
@@ -99,21 +113,7 @@
 		  }
 		};
 	}
-	
-	// callback for faceMatch
-	callback = (HVError, HVResponse) => {
-		  if(HVError) {
-			var errorCode = HVError.getErrorCode();
-			var errorMessage = HVError.getErrorMessage();
-		  } 
-		  else if(HVResponse) {
-			var apiResults = HVResponse.getApiResult();
-			var apiHeaders = HVResponse.getApiHeaders();
-		  }
-		};
-	    
-	HVNetworkHelper.makeFaceMatchCall(faceImageBase64, docImageBase64, {}, {}, callback); // Make Face Match call for a comparison between selfie and doc image
-	    
+	  
 	</script>
   </body>
 </html>	
