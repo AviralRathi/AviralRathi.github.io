@@ -18,9 +18,9 @@
 		HyperSnapSDK.init(jwtToken, HyperSnapParams.Region.India);
 		HyperSnapSDK.startUserSession();
 	  
-	  var faceImageBase64String = '';
-	  var docImageBase64String = '';
-	  var imageBase64 = '';
+	 // var faceImageBase64String = '';
+	 // var docImageBase64String = '';
+	 // var imageBase64 = '';
 	  
 	  // Function wrapper for liveness button
 	  function runLiveness(){
@@ -29,7 +29,7 @@
 		hvFaceConfig.setShouldShowInstructionPage(true);
 
 		HVFaceModule.start(hvFaceConfig, callback);// Start the HVFaceModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
-		faceImageBase64String = imageBase64;
+		//faceImageBase64String = imageBase64;
 	  }
 	  
 	 // Function wrapper for documents button
@@ -49,7 +49,7 @@
 	hvDocConfig.docTextConfig.setDocCaptureTitle('Capture Front of ID Card');
 	
 	HVDocsModule.start(hvDocConfig, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
-	docImageBase64String = imageBase64;
+	//docImageBase64String = imageBase64;
 	
 	 //For Document Back Capture Screen
 		hvDocConfig = new HVDocConfig(); // First create a hvdoc config object
@@ -75,12 +75,12 @@
 		  else if(HVResponse) {
 			var apiResults = HVResponse.getApiResult();
 			var apiHeaders = HVResponse.getApiHeaders();
-			imageBase64 = HVResponse.getImageBase64();
+			var imageBase64 = HVResponse.getImageBase64();
 			var attempts = HVResponse.getAttemptsCount();
 		  }
 		};
 		
-		HVNetworkHelper.makeFaceMatchCall(faceImageBase64String, docImageBase64String, {}, {}, callback); // Make Face Match call for a comparison between selfie and doc image
+		//HVNetworkHelper.makeFaceMatchCall(faceImageBase64String, docImageBase64String, {}, {}, callback); // Make Face Match call for a comparison between selfie and doc image
 	</script>
   </body>
 </html>	
