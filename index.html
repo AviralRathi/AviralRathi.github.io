@@ -99,11 +99,8 @@
 		  }
 		};
 	}
-		
-		
-	HVNetworkHelper.makeFaceMatchCall(faceImageBase64, docImageBase64, {}, {}, callback); // Make Face Match call for a comparison between selfie and doc image
+	
 	// callback for faceMatch
-	    
 	callback = (HVError, HVResponse) => {
 		  if(HVError) {
 			var errorCode = HVError.getErrorCode();
@@ -114,6 +111,8 @@
 			var apiHeaders = HVResponse.getApiHeaders();
 		  }
 		};
+	    
+	HVNetworkHelper.makeFaceMatchCall(faceImageBase64, docImageBase64, {}, {}, callback); // Make Face Match call for a comparison between selfie and doc image
 	    
 	</script>
   </body>
