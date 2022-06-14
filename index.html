@@ -18,8 +18,8 @@
 		HyperSnapSDK.init(jwtToken, HyperSnapParams.Region.India);
 		HyperSnapSDK.startUserSession();
 	  
-	 // var faceImageBase64String = '';
-	 // var docImageBase64String = '';
+	 var faceImageBase64 = '';
+	 var docImageBase64 = '';
 	 // var imageBase64 = '';
 	  
 	  // Function wrapper for liveness button
@@ -46,7 +46,7 @@
 		  else if(HVResponse) {
 			var apiResults = HVResponse.getApiResult();
 			var apiHeaders = HVResponse.getApiHeaders();
-			var faceImageBase64 = HVResponse.getImageBase64();
+			faceImageBase64 = HVResponse.getImageBase64();
 			var attempts = HVResponse.getAttemptsCount();
 		  }
 		};
@@ -94,7 +94,7 @@
 		  else if(HVResponse) {
 			var apiResults = HVResponse.getApiResult();
 			var apiHeaders = HVResponse.getApiHeaders();
-			var docImageBase64 = HVResponse.getImageBase64();
+			docImageBase64 = HVResponse.getImageBase64();
 			var attempts = HVResponse.getAttemptsCount();
 		  }
 		};
