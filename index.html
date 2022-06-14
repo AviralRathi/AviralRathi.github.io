@@ -40,17 +40,9 @@
 	  
 	 // Function wrapper for documents button
 	 function runOCR(){ // Hopefully this 1 function should do both front and back for documents
-	 
-		 <div class="container">
-		      <div class="form-group">
-			<button type="button" onclick="runOCRFront();" class="btn btn-primary">Run OCR Front</button>
-			<button type="button" onclick="runOCRBack();" class="btn btn-primary">Run OCR Back</button>
-		      </div>
-		    <div id="div1"></div>
-		 </div>
 	
 		 //For Document Back Capture Screen
-		 function runOCRBack(){
+		 //function runOCRBack(){
 		hvDocConfig = new HVDocConfig(); // First create a hvdoc config object
 		hvDocConfig.setOCRDetails(
 		  'https://ind-docs.hyperverge.co/v2.0/readKYC',
@@ -58,15 +50,14 @@
 		  {},
 		  {},
 		);
-		hvDocConfig.setShouldShowInstructionPage(true);
 		hvDocConfig.setShouldShowDocReviewScreen(true);
 		hvDocConfig.docTextConfig.setDocCaptureTitle('Capture Back of ID Card');
 
 		HVDocsModule.start(hvDocConfig, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
-		 }
+		 //}
 		 
 	//For Doc Front Capture Screen	
-	function runOCRFront(){	 
+	//function runOCRFront(){	 
 	hvDocConfig = new HVDocConfig();
         hvDocConfig.setOCRDetails(
           'https://ind-docs.hyperverge.co/v2.0/readKYC',
@@ -81,7 +72,7 @@
 	
 	HVDocsModule.start(hvDocConfig, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
 	//docImageBase64String = imageBase64;
-	}
+	//}
 	 }
 	 //Define Callback function
 		callback = (HVError, HVResponse) => {
