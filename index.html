@@ -42,7 +42,6 @@
 	 function runOCR(){ // Hopefully this 1 function should do both front and back for documents
 	
 		 //For Document Back Capture Screen
-		 //function runOCRBack(){
 		hvDocConfig = new HVDocConfig(); // First create a hvdoc config object
 		hvDocConfig.setOCRDetails(
 		  'https://ind-docs.hyperverge.co/v2.0/readKYC',
@@ -54,10 +53,8 @@
 		hvDocConfig.docTextConfig.setDocCaptureTitle('Capture Back of ID Card');
 
 		HVDocsModule.start(hvDocConfig, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
-		 //}
 		 
-	//For Doc Front Capture Screen	
-	//function runOCRFront(){	 
+	//For Doc Front Capture Screen		 
 	hvDocConfig = new HVDocConfig();
         hvDocConfig.setOCRDetails(
           'https://ind-docs.hyperverge.co/v2.0/readKYC',
@@ -72,8 +69,7 @@
 	
 	HVDocsModule.start(hvDocConfig, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
 	//docImageBase64String = imageBase64;
-	//}
-	 }
+	}
 	 //Define Callback function
 		callback = (HVError, HVResponse) => {
 		  if(HVError) {
