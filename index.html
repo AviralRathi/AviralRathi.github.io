@@ -37,10 +37,10 @@
 	 //For Doc Front Capture Screen	
 		var hvDocConfigFront = new HVDocConfig(); // First create a hvdoc config object
 		hvDocConfigFront.setOCRDetails(
-		  'OCR ENDPOINT',
+		  'https://ind-docs.hyperverge.co/v2.0/readKYC',
 		  hvDocConfigFront.DocumentSide.FRONT,
-		  params,
-		  headers,
+		  { },
+		  { },
 		);
 		hvDocConfigFront.setShouldShowInstructionPage(true);
 		hvDocConfig.setShouldShowDocReviewScreen(true);
@@ -52,10 +52,10 @@
 	 //For Document Back Capture Screen
 		var hvDocConfigBack = new HVDocConfig(); // First create a hvdoc config object
 		hvDocConfigBack.setOCRDetails(
-		  'OCR ENDPOINT',
+		  'https://ind-docs.hyperverge.co/v2.0/readKYC',
 		  hvDocConfigBack.DocumentSide.BACK,
-		  params,
-		  headers,
+		  {},
+		  {},
 		);
 		hvDocConfigBack.setShouldShowInstructionPage(true);
 		hvDocConfig.setShouldShowDocReviewScreen(true);
