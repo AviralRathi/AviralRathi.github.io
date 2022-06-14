@@ -35,22 +35,23 @@
 	 // Function wrapper for documents button
 	 function runOCR(){ // Hopefully this 1 function should do both front and back for documents
 	 //For Doc Front Capture Screen	
-		var hvDocConfigFront = new HVDocConfig(); // First create a hvdoc config object
-		hvDocConfigFront.setOCRDetails(
-		  'https://ind-docs.hyperverge.co/v2.0/readKYC',
-		  hvDocConfigFront.DocumentSide.FRONT,
-		  { },
-		  { },
-		);
-		hvDocConfigFront.setShouldShowInstructionPage(true);
-		hvDocConfig.setShouldShowDocReviewScreen(true);
-		hvDocConfig.setChooseDocumentCaptureOption(true);
-
-		HVDocsModule.start(hvDocConfigFront, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
-		docImageBase64String = imageBase64;
+		 
+	hvDocConfigFront = new HVDocConfig();
+        hvDocConfigFront.setOCRDetails(
+          'https://ind-docs.hyperverge.co/v2.0/readKYC',
+          hvDocConfigFront.DocumentSide.FRONT,
+          { },
+          { },
+        );
+        hvDocConfigFront.setShouldShowInstructionPage(true);
+        hvDocConfigFront.setShouldShowDocReviewScreen(true);
+	hvDocConfigFront.setChooseDocumentCaptureOption(true);
+	
+	HVDocsModule.start(hvDocConfigFront, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
+	docImageBase64String = imageBase64;
 	
 	 //For Document Back Capture Screen
-		var hvDocConfigBack = new HVDocConfig(); // First create a hvdoc config object
+		hvDocConfigBack = new HVDocConfig(); // First create a hvdoc config object
 		hvDocConfigBack.setOCRDetails(
 		  'https://ind-docs.hyperverge.co/v2.0/readKYC',
 		  hvDocConfigBack.DocumentSide.BACK,
@@ -58,8 +59,8 @@
 		  {},
 		);
 		hvDocConfigBack.setShouldShowInstructionPage(true);
-		hvDocConfig.setShouldShowDocReviewScreen(true);
-		hvDocConfig.setChooseDocumentCaptureOption(true);
+		hvDocConfigBack.setShouldShowDocReviewScreen(true);
+		hvDocConfigBack.setChooseDocumentCaptureOption(true);
 
 		HVDocsModule.start(hvDocConfigBack, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
 
