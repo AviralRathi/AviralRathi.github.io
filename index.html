@@ -34,11 +34,8 @@
 		  allowMultipleFaces: 'no',
 		  rejectBlur: 'yes',
 		});
-
-		HVFaceModule.start(hvFaceConfig, callback);// Start the HVFaceModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
-		//faceImageBase64String = imageBase64;
-	
-		//callback for Selfie	  
+		
+		  //callback for Selfie	
 		callback = (HVError, HVResponse) => {
 			  if(HVError) {
 				var errorCode = HVError.getErrorCode();
@@ -51,6 +48,9 @@
 				var attempts = HVResponse.getAttemptsCount();
 			  }
 			};
+
+		HVFaceModule.start(hvFaceConfig, callback);// Start the HVFaceModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
+		//faceImageBase64String = imageBase64;
 	  }
 	  
 	 // Function wrapper for documents button
@@ -68,7 +68,18 @@
 		 hvDocConfig.setChooseDocumentCaptureOption(true);
 		hvDocConfig.docTextConfig.setDocCaptureTitle('Capture Back of ID Card');
 
-		HVDocsModule.start(hvDocConfig, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
+		 callback2 = (HVError, HVResponse) => {
+		  if(HVError) {
+			var errorCode = HVError.getErrorCode();
+			var errorMessage = HVError.getErrorMessage();
+		  } 
+		  else if(HVResponse) {
+			var apiResults = HVResponse.getApiResult();
+			var apiHeaders = HVResponse.getApiHeaders();
+			var attempts = HVResponse.getAttemptsCount();
+		  }
+		};
+		HVDocsModule.start(hvDocConfig, callback2); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
 		 
 	//For Doc Front Capture Screen		 
 	hvDocConfig = new HVDocConfig();
@@ -87,7 +98,7 @@
 		 
 	//Define Callback function for Document OCR
 		 
-	callback = (HVError, HVResponse) => {
+	callback1 = (HVError, HVResponse) => {
 		  if(HVError) {
 			var errorCode = HVError.getErrorCode();
 			var errorMessage = HVError.getErrorMessage();
@@ -99,7 +110,7 @@
 			var attempts = HVResponse.getAttemptsCount();
 		  }
 		};
-	HVDocsModule.start(hvDocConfig, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
+	HVDocsModule.start(hvDocConfig, callback1); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
 	
 	}
 	
