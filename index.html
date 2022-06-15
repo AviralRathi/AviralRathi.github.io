@@ -22,24 +22,8 @@
 	 var faceImageBase64 = '';
 	 var docImageBase64 = '';
 	 // var imageBase64 = '';
-	 
-	    //function wrapper for face match
-	  function runFaceMatch(){
-	 // callback for faceMatch
-	callback = (HVError, HVResponse) => {
-		  if(HVError) {
-			var errorCode = HVError.getErrorCode();
-			var errorMessage = HVError.getErrorMessage();
-		  } 
-		  else if(HVResponse) {
-			var apiResults = HVResponse.getApiResult();
-			var apiHeaders = HVResponse.getApiHeaders();
-		  }
-		};
-	    
-	HVNetworkHelper.makeFaceMatchCall(faceImageBase64, docImageBase64, {}, {}, callback); // Make Face Match call for a comparison between selfie and doc image   
-	  }   
-	  // Function wrapper for liveness button
+	  
+	 // Function wrapper for liveness button
 	  function runLiveness(){
 	  //For Face Capture Screen
 		var hvFaceConfig = new HVFaceConfig(); // First create a hvFace config object
@@ -54,36 +38,37 @@
 		HVFaceModule.start(hvFaceConfig, callback);// Start the HVFaceModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
 		//faceImageBase64String = imageBase64;
 	
-	//callback for Selfie	  
-	callback = (HVError, HVResponse) => {
-		  if(HVError) {
-			var errorCode = HVError.getErrorCode();
-			var errorMessage = HVError.getErrorMessage();
-		  } 
-		  else if(HVResponse) {
-			var apiResults = HVResponse.getApiResult();
-			var apiHeaders = HVResponse.getApiHeaders();
-			faceImageBase64 = HVResponse.getImageBase64();
-			var attempts = HVResponse.getAttemptsCount();
-		  }
-		};
+		//callback for Selfie	  
+		callback = (HVError, HVResponse) => {
+			  if(HVError) {
+				var errorCode = HVError.getErrorCode();
+				var errorMessage = HVError.getErrorMessage();
+			  } 
+			  else if(HVResponse) {
+				var apiResults = HVResponse.getApiResult();
+				var apiHeaders = HVResponse.getApiHeaders();
+				faceImageBase64 = HVResponse.getImageBase64();
+				var attempts = HVResponse.getAttemptsCount();
+			  }
+			};
 	  }
 	  
 	 // Function wrapper for documents button
 	 function runOCR(){ // Hopefully this 1 function should do both front and back for documents
 	
 		 //For Document Back Capture Screen
-		//hvDocConfig = new HVDocConfig(); // First create a hvdoc config object
-		//hvDocConfig.setOCRDetails(
-		 // 'https://ind-docs.hyperverge.co/v2.0/readKYC',
-		 // hvDocConfig.DocumentSide.BACK,
-		 // {},
-		 // {},
-		//);
-		//hvDocConfig.setShouldShowDocReviewScreen(true);
-		//hvDocConfig.docTextConfig.setDocCaptureTitle('Capture Back of ID Card');
+		hvDocConfig = new HVDocConfig(); // First create a hvdoc config object
+		hvDocConfig.setOCRDetails(
+		'https://ind-docs.hyperverge.co/v2.0/readKYC',
+		 hvDocConfig.DocumentSide.BACK,
+		  {},
+		  {},
+		);
+		hvDocConfig.setShouldShowDocReviewScreen(true);
+		 hvDocConfig.setChooseDocumentCaptureOption(true);
+		hvDocConfig.docTextConfig.setDocCaptureTitle('Capture Back of ID Card');
 
-		//HVDocsModule.start(hvDocConfig, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
+		HVDocsModule.start(hvDocConfig, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
 		 
 	//For Doc Front Capture Screen		 
 	hvDocConfig = new HVDocConfig();
@@ -93,12 +78,6 @@
           { },
           { },
         );
-	hvDocConfig.setOCRDetails(
-		  'https://ind-docs.hyperverge.co/v2.0/readKYC',
-		  hvDocConfig.DocumentSide.BACK,
-		  {},
-		  {},
-		);
         hvDocConfig.setShouldShowInstructionPage(true);
         hvDocConfig.setShouldShowDocReviewScreen(true);
 	hvDocConfig.setChooseDocumentCaptureOption(true);
@@ -123,6 +102,23 @@
 	HVDocsModule.start(hvDocConfig, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
 	
 	}
+	
+	//function wrapper for face match
+	  function runFaceMatch(){
+	 // callback for faceMatch
+	callback = (HVError, HVResponse) => {
+		  if(HVError) {
+			var errorCode = HVError.getErrorCode();
+			var errorMessage = HVError.getErrorMessage();
+		  } 
+		  else if(HVResponse) {
+			var apiResults = HVResponse.getApiResult();
+			var apiHeaders = HVResponse.getApiHeaders();
+		  }
+		};
+	    
+	HVNetworkHelper.makeFaceMatchCall(faceImageBase64, docImageBase64, {}, {}, callback); // Make Face Match call for a comparison between selfie and doc image   
+	  } 
 	  
 	</script>
   </body>
