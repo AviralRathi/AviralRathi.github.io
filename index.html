@@ -148,11 +148,19 @@
 	  function runFaceMatch(){
 	 // callback for faceMatch
 	callback = (HVError, HVResponse) => {
-		  if(HVError) {
-			var errorCode = HVError.getErrorCode();
-			var errorMessage = HVError.getErrorMessage();
-		  } 
-		  else if(HVResponse) {
+		 if (HVError) {
+				  var para = document.createElement('p');
+				  var node = document.createTextNode(JSON.stringify(HVError));
+				  para.appendChild(node);
+				  var element = document.getElementById('div1');
+				  element.appendChild(para);
+       			 } 
+			 else {
+				  var para = document.createElement('p');
+				  var node = document.createTextNode(JSON.stringify(HVResponse));
+				  para.appendChild(node);
+				  var element = document.getElementById('div1');
+				  element.appendChild(para);  
 			var apiResults = HVResponse.getApiResult();
 			var apiHeaders = HVResponse.getApiHeaders();
 		  }
