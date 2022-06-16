@@ -99,7 +99,7 @@
 			docImageBase64 = HVResponse.getImageBase64();
 			var attempts = HVResponse.getAttemptsCount();
 			
-			runOCRBack();
+			runFaceMatch();
 		}
 	};
 	HVDocsModule.start(hvDocConfig, callback1); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
