@@ -7,9 +7,7 @@
     <center><h2>Hyperverge WebSDK Demo</h2></center>
     <div class="container">
       <div class="form-group">
-        <center><button type="button" onclick="runLiveness();" class="btn btn-primary">Run Face Liveness</button>
-		<button type="button" onclick="runOCR();" class="btn btn-primary">Run OCR</button>
-	     	<button type="button" onclick="runFaceMatch();" class="btn btn-primary">Run Face Match</button></center>
+        <center><button type="button" onclick="runLiveness();" class="btn btn-primary">Start Process</button></center>
       </div>
       <div id="div1"></div>
     </div>
@@ -54,50 +52,18 @@
 				var apiHeaders = HVResponse.getApiHeaders();
 				faceImageBase64 = HVResponse.getImageBase64();
 				var attempts = HVResponse.getAttemptsCount();
-			  }
-			};
+				
+				runOCRFront();
+			}
+		};
 
 		HVFaceModule.start(hvFaceConfig, callback);// Start the HVFaceModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
 		//faceImageBase64String = imageBase64;
 	  }
 	  
 	 // Function wrapper for documents button
-	 function runOCR(){ // Hopefully this 1 function should do both front and back for documents
-	
-		 //For Document Back Capture Screen
-		hvDocConfig = new HVDocConfig(); // First create a hvdoc config object
-		hvDocConfig.setOCRDetails(
-		'https://ind-docs.hyperverge.co/v2.0/readKYC',
-		 hvDocConfig.DocumentSide.BACK,
-		  {},
-		  {},
-		);
-		hvDocConfig.setShouldShowDocReviewScreen(true);
-		 hvDocConfig.setChooseDocumentCaptureOption(true);
-		hvDocConfig.docTextConfig.setDocCaptureTitle('Capture Back of ID Card');
-
-		 callback2 = (HVError, HVResponse) => {
-			  if (HVError) {
-				  var para = document.createElement('p');
-				  var node = document.createTextNode(JSON.stringify(HVError));
-				  para.appendChild(node);
-				  var element = document.getElementById('div1');
-				  element.appendChild(para);
-       			 } 
-			 else {
-				  var para = document.createElement('p');
-				  var node = document.createTextNode(JSON.stringify(HVResponse));
-				  para.appendChild(node);
-				  var element = document.getElementById('div1');
-				  element.appendChild(para);
-			var apiResults = HVResponse.getApiResult();
-			var apiHeaders = HVResponse.getApiHeaders();
-			var attempts = HVResponse.getAttemptsCount();
-		  }
-		};
-		HVDocsModule.start(hvDocConfig, callback2); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
-		 
-	//For Doc Front Capture Screen		 
+	 function runOCRFront(){ // Hopefully this 1 function should do both front and back for documents
+	 
 	hvDocConfig = new HVDocConfig();
         hvDocConfig.setOCRDetails(
           'https://ind-docs.hyperverge.co/v2.0/readKYC',
@@ -132,12 +98,52 @@
 			var apiHeaders = HVResponse.getApiHeaders();
 			docImageBase64 = HVResponse.getImageBase64();
 			var attempts = HVResponse.getAttemptsCount();
-		  }
-		};
+			
+			runOCRBack();
+		}
+	};
 	HVDocsModule.start(hvDocConfig, callback1); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
 	
 	}
+	//function wrapper for OCR Back
 	
+	function runOCRBack(){
+	
+	 //For Document Back Capture Screen
+		hvDocConfig = new HVDocConfig(); // First create a hvdoc config object
+		hvDocConfig.setOCRDetails(
+		'https://ind-docs.hyperverge.co/v2.0/readKYC',
+		 hvDocConfig.DocumentSide.BACK,
+		  {},
+		  {},
+		);
+		hvDocConfig.setShouldShowDocReviewScreen(true);
+		 hvDocConfig.setChooseDocumentCaptureOption(true);
+		hvDocConfig.docTextConfig.setDocCaptureTitle('Capture Back of ID Card');
+
+		 callback2 = (HVError, HVResponse) => {
+			  if (HVError) {
+				  var para = document.createElement('p');
+				  var node = document.createTextNode(JSON.stringify(HVError));
+				  para.appendChild(node);
+				  var element = document.getElementById('div1');
+				  element.appendChild(para);
+       			 } 
+			 else {
+				  var para = document.createElement('p');
+				  var node = document.createTextNode(JSON.stringify(HVResponse));
+				  para.appendChild(node);
+				  var element = document.getElementById('div1');
+				  element.appendChild(para);
+			var apiResults = HVResponse.getApiResult();
+			var apiHeaders = HVResponse.getApiHeaders();
+			var attempts = HVResponse.getAttemptsCount();
+			
+			runFaceMatch();
+			}
+		};
+		HVDocsModule.start(hvDocConfig, callback2); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
+	}
 	//function wrapper for face match
 	  function runFaceMatch(){
 	 // callback for faceMatch
