@@ -26,32 +26,45 @@
 	    function faceMatch(){
 	    
 	    //facematch function from Jio
+		    const hvWebFaceMatch = async (sourceImg: string, compareImg: string) => {
+			  // Return a simple promise
+			  return new Promise((resolve, reject) => {
+			    const faceCaptureCallback = (HVError: any, HVResponse: any) => {
+			      // compare image
 
-		const hvWebFaceMatch = async (sourceImg: string, compareImg: string) => {
-		  // Return a simple promise
-		  return new Promise((resolve, reject) => {
-		    const faceCaptureCallback = (HVError: any, HVResponse: any) => {
-		      // compare image
+			      if (HVError) {
+				console.log(HVError);
+				const errorMessage = HVError.getErrorMessage();
+				reject(errorMessage);
+			      } else if (HVResponse) {
+				const apiResults: any = HVResponse.getApiResult();
 
-		      if (HVError) {
-			console.log(HVError);
-			const errorMessage = HVError.getErrorMessage();
-			reject(errorMessage);
-		      } else if (HVResponse) {
-			const apiResults: any = HVResponse.getApiResult();
+				const responseData: any = {
+				  face_match: apiResults.result.match,
+				  face_match_Response: JSON.stringify(apiResults),
+				};
+				responseData.logRes = apiResults;
+				resolve(responseData);
+			      }
+			    };
 
-			const responseData: any = {
-			  face_match: apiResults.result.match,
-			  face_match_Response: JSON.stringify(apiResults),
-			};
-			responseData.logRes = apiResults;
-			resolve(responseData);
-		      }
-		    };
+			    /** Start the HVDocsModule. Callback is the function that receives
+			     * the data once the api call finishes.
+			     * It gets two objects HVError and HVResponse.
+			     */
+			    // @ts-ignore
+			    window.HVNetworkHelper.makeFaceMatchCall(
+			      sourceImg,
+			      compareImg,
+			      {},
+			      {},
+			      faceCaptureCallback
+			    );
+  			});
+	};
 
-		window.HVNetworkHelper.makeFaceMatchCall(sourceImg,compareImg,{},{},faceCaptureCallback); // Make Face Match call for a comparison between selfie and doc image   
-		});
-		};
+	export default hvWebFaceMatch;
+
 	}  
 	</script>
   </body>
