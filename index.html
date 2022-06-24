@@ -7,7 +7,7 @@
     <center><h2>Hyperverge WebSDK Demo</h2></center>
     <div class="container">
       <div class="form-group">
-        <center><button type="button" onclick="hvWebFaceMatch;" class="btn btn-primary">Start Process</button></center>
+        <center><button type="button" onclick="faceMatch();" class="btn btn-primary">Start Process</button></center>
       </div>
       <div id="div1"></div>
     </div>
@@ -47,7 +47,8 @@
 		HVNetworkHelper.makeFaceMatchCall(sourceImg, compareImg, {},{}, callback);
 	    } 
 	   
-	    
+	    // wrapper to call jio function
+	    	function faceMatch(){
 	    //facematch function from Jio
 		    const hvWebFaceMatch = async (sourceImg, compareImg) => {
 			  // Return a simple promise
@@ -92,7 +93,8 @@
 			    );
   			});
 	};
- 
-	</script>
+}
+
+	  </script>
   </body>
 </html>	
