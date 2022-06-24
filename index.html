@@ -35,7 +35,7 @@
        			 } 
 			 else {
 				  var para = document.createElement('p');
-				  var node = document.createTextNode(JSON.stringify(HVResponse));
+				  var node = document.createTextNode(JSON.stringify(HVResponse.getApiResult()));
 				  para.appendChild(node);
 				  var element = document.getElementById('div1');
 				  element.appendChild(para);  
