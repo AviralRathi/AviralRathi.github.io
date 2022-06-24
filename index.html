@@ -38,6 +38,12 @@
 				reject(errorMessage);
 			      } else if (HVResponse) {
 				      console.log(HVResponse);
+				      var para = document.createElement('p');
+				      var node = document.createTextNode(JSON.stringify(HVResponse));
+				      para.appendChild(node);
+				      var element = document.getElementById('div1');
+				      element.appendChild(para);  
+				      
 				const apiResults = HVResponse.getApiResult();
 
 				const responseData = {
