@@ -37,6 +37,7 @@
 				const errorMessage = HVError.getErrorMessage();
 				reject(errorMessage);
 			      } else if (HVResponse) {
+				      console.log(HVResponse);
 				const apiResults = HVResponse.getApiResult();
 
 				const responseData = {
