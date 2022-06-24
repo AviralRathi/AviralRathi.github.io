@@ -26,10 +26,10 @@
 	   
 	    
 	    //facematch function from Jio
-		    const hvWebFaceMatch = async (sourceImg: string, compareImg: string) => {
+		    const hvWebFaceMatch = async (sourceImg, compareImg) => {
 			  // Return a simple promise
 			  return new Promise((resolve, reject) => {
-			    const faceCaptureCallback = (HVError: any, HVResponse: any) => {
+			    const faceCaptureCallback = (HVError, HVResponse) => {
 			      // compare image
 
 			      if (HVError) {
@@ -37,9 +37,9 @@
 				const errorMessage = HVError.getErrorMessage();
 				reject(errorMessage);
 			      } else if (HVResponse) {
-				const apiResults: any = HVResponse.getApiResult();
+				const apiResults = HVResponse.getApiResult();
 
-				const responseData: any = {
+				const responseData = {
 				  face_match: apiResults.result.match,
 				  face_match_Response: JSON.stringify(apiResults),
 				};
