@@ -3,7 +3,7 @@
 
 <head>
     <script
-        src="https://hv-camera-web-sg.s3.ap-southeast-1.amazonaws.com/hyperverge-web-sdk%40demo/src/sdk.min.js"></script>
+        src="https://hv-camera-web-sg.s3-ap-southeast-1.amazonaws.com/hyperverge-web-sdk@5.1.0/src/sdk.min.js"></script>
 </head>
 
 <body>
@@ -15,11 +15,11 @@
 </body>
 <script>
     function starOnboarding() {
-        const accessToken = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImE0NmIxMCIsImhhc2giOiI1MGY4ZjAzNTZiNWI1YzE2ODM2OTE5NzBkYTc0OTIwYzQwYjNiN2I1MjlmN2Q3MWY3MTkzZDdmNzhiMjUxNGMwIiwiaWF0IjoxNjU2NTYyMDQ4LCJleHAiOjE2NTY1NjgwNDgsImp0aSI6IjdiYzBjMTJjLWM2OWItNDBiMS1iNDViLTkyMzFmMzJlYWJiZiJ9.nI3jnGb7ww8qk4yd-220i8OIDDjh0SdgehL98qLffJ_W6i9_AdDSPTh3iXrEt26PiF4JSjTKZaO7KNvOcceCEclIrYlqzsePtrlphjeQrzmUIomJTDf9vf5-t07Kmd8AB1Q-gPVlFVsLa-u39g5i8lgM2tmlte-RV6cVKcwtqIM"
+        const accessToken = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6InlsYnVjYiIsImhhc2giOiJjYzRmZmRmZWY5YWZjNTI5MjhmY2Y5OTYzYmRiOTQ0NTJhZjFkZTVjMmJjOTQ1YTI2NTZhOWFiZWQ2YTgxYTQ4IiwiaWF0IjoxNjU3NjEzMDk1LCJleHAiOjE2NTc2MTkwOTUsImp0aSI6ImRmZTE1Y2U4LTU5ZjEtNDIyMC04NDhkLTQxZjkyMWFmYWI2NyJ9.D91fuPOsWlgy3ihMh1EnOHVL0_jluc16GX0l9kF3qfZVVG-2ALUl7FgA4p3ii9tn7EMR_qP-bnUrsLxSwCCP0mdaKP4dDU4MTw5W89pMQoM_Fim3264MoEjCmQK6trAPFJM7WFUPFAGsI33KHEgfANOUwuA4TjyUcW6poYoKV9s"
         const hyperKycConfig = new HyperKycConfig(
             accessToken,
             "workflow-aviral-test",
-            "transactionId"
+            "densityTestingWeb"
         );
         HyperKYCModule.launch(hyperKycConfig, handler);
     }
