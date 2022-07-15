@@ -15,11 +15,11 @@
 </body>
 <script>
     function starOnboarding() {
-        const accessToken = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6InlsYnVjYiIsImhhc2giOiJjYzRmZmRmZWY5YWZjNTI5MjhmY2Y5OTYzYmRiOTQ0NTJhZjFkZTVjMmJjOTQ1YTI2NTZhOWFiZWQ2YTgxYTQ4IiwiaWF0IjoxNjU3NjI3MDExLCJleHAiOjE2NTc2MzMwMTEsImp0aSI6IjkwYTBjN2FmLTY3MjQtNDI1NS04ZTE2LTBlYjQ3ZDA4OGQ5MSJ9.eytJPcTANEH1lGG7_mVuC0T9ChO2GZSukCMATtZh-pyyLDhc-l7xS_i9fkbME3bFP1-6ziVWbsg91s-LEvGnxIzKxHUG2zzSmEykXoQ-KoM2SBYINF7RgwGSpXEUWGYX5WSiGF6JhttyrzbzPVKeSrfI44i6Gz0TgltoOzAdz3Q"
+        const accessToken = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImE0NmIxMCIsImhhc2giOiI1MGY4ZjAzNTZiNWI1YzE2ODM2OTE5NzBkYTc0OTIwYzQwYjNiN2I1MjlmN2Q3MWY3MTkzZDdmNzhiMjUxNGMwIiwiaWF0IjoxNjU3ODc2MTIxLCJleHAiOjE2NTc4ODIxMjEsImp0aSI6IjMxMDZjZmM2LWZiNjctNGZhMC1iMDliLTIwYmI4MGRkZWM2NCJ9.DTdegZrnxNrT9MRU8g3ogHHaSPnfhqoMers2C9Mysotna2w1EQO4GUYkSEaHPZSsuMIzQ7sd_L4Fp9g5Xeo8NcwhPiZW2HMhJz3qdEhjULS0F77oFHRG2xbn29ugk04VeNcUO0ZZM1XcrOiWCYOfryOb76fD_iv71o1z_ibpaNI"
         const hyperKycConfig = new HyperKycConfig(
             accessToken,
             "workflow-aviral-test",
-            "densityTestingWeb123"
+            "testing-video-liveness"
         );
         HyperKYCModule.launch(hyperKycConfig, handler);
     }
