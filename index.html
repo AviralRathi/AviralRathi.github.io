@@ -1,34 +1,163 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hyperverge Test</title>
-    <script src="https://hv-camera-web-sg.s3-ap-southeast-1.amazonaws.com/hyperverge-web-sdk@5.1.1/src/sdk.min.js"></script>
-    <script>
-      
-      function onKYCButtonClick() {
-        var token = "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6InlsYnVjYiIsImhhc2giOiJjYzRmZmRmZWY5YWZjNTI5MjhmY2Y5OTYzYmRiOTQ0NTJhZjFkZTVjMmJjOTQ1YTI2NTZhOWFiZWQ2YTgxYTQ4IiwiaWF0IjoxNjU4MTQ4NDk3LCJleHAiOjE2NTgxNTQ0OTcsImp0aSI6ImY2NTczNGQ4LWRkZmItNDQ0Ny1iMmI3LTc2NjM0OTFiNzBhYiJ9.nAgzigtLnneG3lSES6TwfnZvI2ulhEFF_5mzZet21psI52oCfyCFfyg7bubYplbL2OmvEgikncAiO9OZ_Wv_zr2oF1e-w8qoSMD24mhgN2zrTxN0yrFKZ5eUZ9yMUaXi_knrnL50PtpzBQ8JhCN0hqrUQV85MMRs5_Ktblxt3j8"
-        // console.log(token);
-        const hyperKycConfig = new window.HyperKycConfig(token, "workflow-aviral-test", "546689a4-9a81-42c6-a6b1-17d9be536dba");
-
-        const handler = (HyperKycResult) => {
-            console.log(HyperKycResult);
-            if(HyperKycResult.Cancelled){ //User cancelled
-                alert("User Cancelled");
-            }else if(HyperKycResult.Failure){ // failure
-                console.log(HyperKycResult);
-                alert("Error Occured");
-            }else if(HyperKycResult.Success){ // success
-                alert("Successful Implementation");
-            }
-        }
-        window.HyperKYCModule.launch(hyperKycConfig, handler);
-      }
-    </script>
+    <script src="https://hv-camera-web-sg.s3-ap-southeast-1.amazonaws.com/hyperverge-web-sdk@5.1.3/src/sdk.min.js"></script>
   </head>
-
   <body>
-    <button onclick="onKYCButtonClick()">Click for KYC</button>
+    <center><h2>Hyperverge WebSDK Demo</h2></center>
+    <div class="container">
+      <div class="form-group">
+        <center><button type="button" onclick="runLiveness();" class="btn btn-primary">Start KYC</button>
+		</center>
+	  </div>
+    <div id="div1"></div>
+    </div>
+    <script>
+      // client calls the auth api to get the token from their backend server
+	var jwtToken = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImE0NmIxMCIsImhhc2giOiI1MGY4ZjAzNTZiNWI1YzE2ODM2OTE5NzBkYTc0OTIwYzQwYjNiN2I1MjlmN2Q3MWY3MTkzZDdmNzhiMjUxNGMwIiwiaWF0IjoxNjU4NDA1NTE2LCJleHAiOjE2NTg0MTI3MTYsImp0aSI6IjQyZDcxNjlkLTc2YzAtNDI5My1iZmU4LWQ3NDJmNjM3ZTMyMiJ9.lSK5zJOrc5xdEuecZou3yz1qkGjKZuRUsEXvOmX4Q6TElZ8RSdDgnCtro_FDqmJ6m-VShkRnDZa2qElfGv1dG30gyweLJERuINQltjwEDPXz_eMB6-bFvmnri-f7KQBNTK-fnTLGCbIZ51KeMldhaScbqfXCIJ-RVzWhJ45SBNg'
+	HyperSnapSDK.init(jwtToken, HyperSnapParams.Region.AsiaPacific);
+	HyperSnapSDK.startUserSession();
+	  
+	var faceImageBase64 = '';
+	var docImageBase64 = '';
+	 // var imageBase64 = '';
+	  
+	 // Function wrapper for liveness button
+	function runLiveness(){
+	  //For Face Capture Screen
+		var hvFaceConfig = new HVFaceConfig(); // First create a hvFace config object
+		hvFaceConfig.setShouldShowInstructionPage(true);
+    hvFaceConfig.setEnableFaceAutoCapture(true, 3000);
+		hvFaceConfig.setLivenessAPIParameters({
+		  rejectFaceMask: 'yes',
+		  allowEyesClosed: 'no',
+		  allowMultipleFaces: 'no',
+		  rejectBlur: 'yes',
+		});
+    
+		
+		  //callback for Selfie	
+		callback = (HVError, HVResponse) => {
+			if (HVError) {
+			  var para = document.createElement('p');
+			  var node = document.createTextNode(JSON.stringify(HVError));
+			  para.appendChild(node);
+			  var element = document.getElementById('div1');
+			  element.appendChild(para);
+			} 
+			else {
+				  var para = document.createElement('p');
+				  var node = document.createTextNode(JSON.stringify(HVResponse));
+				  para.appendChild(node);
+				  var element = document.getElementById('div1');
+				  element.appendChild(para);
+				var apiResults = HVResponse.getApiResult();
+				var apiHeaders = HVResponse.getApiHeaders();
+				faceImageBase64 = HVResponse.getImageBase64();
+				var attempts = HVResponse.getAttemptsCount();
+				//runOCRFront();
+			  }
+			};
+
+		HVFaceModule.start(hvFaceConfig, callback);// Start the HVFaceModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
+	}
+	  
+	 //For Doc Front Capture Screen
+	function runOCRFront(){
+		hvDocConfig = new HVDocConfig();
+		hvDocConfig.setOCRDetails(
+		  'https://ind-docs.hyperverge.co/v2.0/readKYC',
+		  hvDocConfig.DocumentSide.FRONT,
+		  { },
+		  { },
+		);
+		hvDocConfig.setShouldShowInstructionPage(true);
+		hvDocConfig.setShouldShowDocReviewScreen(true);
+		hvDocConfig.setChooseDocumentCaptureOption(true);
+		hvDocConfig.docTextConfig.setDocCaptureTitle('Capture Front of ID Card');
+			 
+		//Define Callback function for Document OCR
+			 
+		callback = (HVError, HVResponse) => {
+			if (HVError) {
+			  var para = document.createElement('p');
+			  var node = document.createTextNode(JSON.stringify(HVError));
+			  para.appendChild(node);
+			  var element = document.getElementById('div1');
+			  element.appendChild(para);
+			}
+			else {
+				var para = document.createElement('p');
+				var node = document.createTextNode(JSON.stringify(HVResponse));
+				para.appendChild(node);
+				var element = document.getElementById('div1');
+				element.appendChild(para);
+				var apiResults = HVResponse.getApiResult();
+				var apiHeaders = HVResponse.getApiHeaders();
+				docImageBase64 = HVResponse.getImageBase64();
+				var attempts = HVResponse.getAttemptsCount();
+				runOCRBack();
+			}
+		};
+		HVDocsModule.start(hvDocConfig, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
+	
+	}
+	 
+	 // Function wrapper for documents button
+	 function runOCRBack(){
+	
+		 //For Document Back Capture Screen
+		hvDocConfig = new HVDocConfig(); // First create a hvdoc config object
+		hvDocConfig.setOCRDetails(
+		'https://ind-docs.hyperverge.co/v2.0/readKYC',
+		 hvDocConfig.DocumentSide.BACK,
+		  {},
+		  {},
+		);
+		hvDocConfig.setShouldShowDocReviewScreen(true);
+		hvDocConfig.docTextConfig.setDocCaptureTitle('Capture Back of ID Card');
+
+		 callback = (HVError, HVResponse) => {
+			  if (HVError) {
+				  var para = document.createElement('p');
+				  var node = document.createTextNode(JSON.stringify(HVError));
+				  para.appendChild(node);
+				  var element = document.getElementById('div1');
+				  element.appendChild(para);
+       			 } 
+			 else {
+				  var para = document.createElement('p');
+				  var node = document.createTextNode(JSON.stringify(HVResponse));
+				  para.appendChild(node);
+				  var element = document.getElementById('div1');
+				  element.appendChild(para);
+				  var apiResults = HVResponse.getApiResult();
+				  var apiHeaders = HVResponse.getApiHeaders();
+				  var attempts = HVResponse.getAttemptsCount();
+				  runFaceMatch();
+		  }
+		};
+		HVDocsModule.start(hvDocConfig, callback); // Start the HVDocsModule. Callback is the function that receives the data once the api call finishes.It gets two objects HVError and HVResponse.
+	}	 
+	
+	
+	//function wrapper for face match
+	function runFaceMatch(){
+	 // callback for faceMatch
+		callback = (HVError, HVResponse) => {
+		  if(HVError) {
+			var errorCode = HVError.getErrorCode();
+			var errorMessage = HVError.getErrorMessage();
+		  } 
+		  else if(HVResponse) {
+			var apiResults = HVResponse.getApiResult();
+			var apiHeaders = HVResponse.getApiHeaders();
+		  }
+		};
+	    
+		HVNetworkHelper.makeFaceMatchCall(faceImageBase64, docImageBase64, {}, {}, callback); // Make Face Match call for a comparison between selfie and doc image   
+	} 
+	  
+	</script>
   </body>
-</html>
+</html>	
