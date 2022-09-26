@@ -14,7 +14,7 @@
     </div>
     <script>
       // client calls the auth api to get the token from their backend server
-	var jwtToken = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImE0NmIxMCIsImhhc2giOiI1MGY4ZjAzNTZiNWI1YzE2ODM2OTE5NzBkYTc0OTIwYzQwYjNiN2I1MjlmN2Q3MWY3MTkzZDdmNzhiMjUxNGMwIiwiaWF0IjoxNjYwMDQ4MDg0LCJleHAiOjE2NjAwNTQwODQsImp0aSI6IjVjZGJmMTVhLThhYTQtNDcxYy1hNTFmLTYxYTc3YzA1ZTM2NiJ9.Uu0d1jXEGmSH7p1ozW473JBd9wwrYJya_9Wn2EoweQDJ-cKkz-nHVZd0_Jog7VVHoehdPz3kayk9tNGo-9piQZrX3tUFly9iWAndmV29ifFRCzn0zAQl-YZTXF2Z14XhAALFxm_vRurFWp6t3IdvXsc8qeEYepnFKVpbClC9zqk';
+	var jwtToken = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImE0NmIxMCIsImhhc2giOiI1MGY4ZjAzNTZiNWI1YzE2ODM2OTE5NzBkYTc0OTIwYzQwYjNiN2I1MjlmN2Q3MWY3MTkzZDdmNzhiMjUxNGMwIiwiaWF0IjoxNjY0MTczNTU0LCJleHAiOjE2NjQyNTk5NTQsImp0aSI6IjRjOWIyOWMzLTg0MDAtNDYwYS1iYjhjLTk0MzA4ZGYxNzNhZSJ9.L2i5avgDeoK7eMqWvRnnM3IXHw-mtb9ai964dEAl9QhEJM7WC94iNF9wiy_uET9N3RAN0rx91Ardm26-dJhLSaqAZcTJ2NxOAhIJJthRCQGi8ip-o72IxqxmfQ4s1ZzMIBnAtN0peZp_djAfgLuzRZtH2MDTcy_vPowzATLFooI';
 	HyperSnapSDK.init(jwtToken, HyperSnapParams.Region.India);
 	HyperSnapSDK.startUserSession();
 	  
@@ -27,7 +27,7 @@
 	  //For Face Capture Screen
 		var hvFaceConfig = new HVFaceConfig(); // First create a hvFace config object
 		hvFaceConfig.setShouldShowInstructionPage(true);
-    hvFaceConfig.setEnableFaceAutoCapture(true, 3000);
+    		//hvFaceConfig.setEnableFaceAutoCapture(true, 3000);
 		hvFaceConfig.setLivenessAPIParameters({
 		  rejectFaceMask: 'yes',
 		  allowEyesClosed: 'no',
@@ -47,13 +47,14 @@
 			} 
 			else {
 				  var para = document.createElement('p');
-				  var node = document.createTextNode(JSON.stringify(HVResponse));
+				  var node = document.createTextNode(JSON.stringify(HVResponse.getFullImageURI()));
 				  para.appendChild(node);
 				  var element = document.getElementById('div1');
 				  element.appendChild(para);
 				var apiResults = HVResponse.getApiResult();
 				var apiHeaders = HVResponse.getApiHeaders();
 				faceImageBase64 = HVResponse.getImageBase64();
+				//String fullFaceImageUri = hvResponse.getFullImageURI();
 				var attempts = HVResponse.getAttemptsCount();
 				//runOCRFront();
 			  }
